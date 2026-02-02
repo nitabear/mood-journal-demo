@@ -1,1 +1,1 @@
-# mood-journal-ai
+# mood-journal-demo
