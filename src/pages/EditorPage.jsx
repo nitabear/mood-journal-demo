@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from '../components/Layout';
 import { MoodChips } from '../components/ui/MoodChips';
 import { useMood } from '../context/MoodContext';
+import { analyzeSentiment } from '../lib/sentiment';
 
 export const EditorPage = () => {
   const { setCurrentMood } = useMood();
@@ -13,27 +14,57 @@ export const EditorPage = () => {
     setCurrentMood(mood);
   }, [mood, setCurrentMood]);
 
-  // Derive bgStyle directly from mood state
-  let bgStyle = {
-      background: 'radial-gradient(circle, #2D3436 0%, #1A1A1A 100%)',
-      transition: 'background 1.5s ease-in-out'
+  // Handle Text Change & Sentiment Analysis
+  const handleTextChange = (e) => {
+      const newText = e.target.value;
+      setText(newText);
+
+      const sentiment = analyzeSentiment(newText);
+      if (sentiment !== 'neutral') {
+          // Find a mood object that matches the sentiment (just for background logic)
+          // Or we can create a transient mood object.
+          // For simplicity, we'll map 'positive' to 'joyful' logic and 'negative' to 'anxious' logic
+          // UNLESS the user has explicitly selected a mood?
+          // The prompt says "Automatically updates...".
+          // So text overrides or sets the mood.
+
+          if (sentiment === 'positive') {
+              setMood({ value: 'text-positive', sentiment: 'positive' });
+          } else if (sentiment === 'negative') {
+              setMood({ value: 'text-negative', sentiment: 'negative' });
+          }
+      } else {
+          // If neutral, do we reset? Maybe only if text is empty?
+          if (newText.length === 0) setMood(null);
+      }
   };
+
+  // Determine colors based on mood (defaulting to dark gradient if null)
+  let color1 = '#2D3436';
+  let color2 = '#1A1A1A';
+  let isRadial = true;
 
   if (mood) {
     if (mood.sentiment === 'positive') {
-        bgStyle = {
-            backgroundColor: '#FFF9C4',
-            backgroundImage: 'linear-gradient(to bottom right, #FFF9C4, #FFECB3)',
-            transition: 'background 1.5s ease-in-out, background-color 1.5s ease-in-out'
-        };
+        color1 = '#FFF9C4';
+        color2 = '#FFECB3';
+        isRadial = false;
     } else if (mood.sentiment === 'negative') {
-        bgStyle = {
-            backgroundColor: '#E1F5FE',
-            backgroundImage: 'linear-gradient(to bottom right, #E1F5FE, #B3E5FC)',
-            transition: 'background 1.5s ease-in-out, background-color 1.5s ease-in-out'
-        };
+        color1 = '#E1F5FE';
+        color2 = '#B3E5FC';
+        isRadial = false;
     }
   }
+
+  // Define style using CSS variables
+  const containerStyle = {
+      '--bg-color-1': color1,
+      '--bg-color-2': color2,
+      backgroundImage: isRadial
+        ? 'radial-gradient(circle, var(--bg-color-1) 0%, var(--bg-color-2) 100%)'
+        : 'linear-gradient(to bottom right, var(--bg-color-1), var(--bg-color-2))',
+      transition: 'background-image 1.5s ease-in-out'
+  };
 
   // Word count logic
   const wordCount = text.trim().split(/\s+/).filter(w => w.length > 0).length;
@@ -45,7 +76,7 @@ export const EditorPage = () => {
     <Layout>
       <div
         className="flex-1 flex flex-col items-center justify-start pt-20 px-6 fade-in min-h-[calc(100vh-88px)] transition-all duration-1500"
-        style={bgStyle}
+        style={containerStyle}
       >
         <div className="w-full max-w-3xl flex-1 flex flex-col">
           {/* Headline */}
@@ -60,7 +91,7 @@ export const EditorPage = () => {
                 placeholder="Begin your reflection here..."
                 spellCheck="false"
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={handleTextChange}
             ></textarea>
           </div>
         </div>
