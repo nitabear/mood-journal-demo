@@ -10,6 +10,8 @@ export const Button = ({ children, className, variant = 'primary', ...props }) =
     ghost: "text-journal-text dark:text-white hover:bg-black/5 dark:hover:bg-white/10",
     editor: "border border-off-white/10 bg-off-white/5 hover:bg-editor-purple/20 hover:border-editor-purple/30 text-off-white/60 hover:text-off-white",
     editorActive: "border border-editor-purple/40 bg-editor-purple/20 text-white",
+    editorLight: "border border-journal-text/20 bg-journal-text/5 hover:bg-journal-text/10 hover:border-journal-text/30 text-journal-text/60 hover:text-journal-text",
+    editorActiveLight: "border border-journal-text/50 bg-journal-text/10 text-journal-text",
     icon: "p-2 rounded-lg hover:bg-white/10 text-current"
   };
 
