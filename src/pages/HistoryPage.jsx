@@ -39,6 +39,7 @@ export const HistoryPage = () => {
                 }`}
                 placeholder={isDark ? "Search your thoughts, moods, or memories..." : "Search past reflections..."}
                 type="text"
+                aria-label="Search entries"
               />
               {isDark && (
                 <div className="flex items-center px-4">

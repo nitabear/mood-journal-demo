@@ -23,7 +23,11 @@ export const Navbar = () => {
           <h2 className={`${subTextColor} text-sm font-semibold tracking-widest uppercase transition-colors duration-1500`}>Mood Journal</h2>
         </div>
          <div className="flex gap-4">
-            <button onClick={toggleTheme} className={`${mutedTextColor} transition-colors duration-1500`}>
+            <button
+              onClick={toggleTheme}
+              className={`${mutedTextColor} transition-colors duration-1500`}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
                 <span className="material-symbols-outlined">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
             </button>
             <Link to="/" className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${borderColor} hover:border-editor-purple/50 hover:bg-editor-purple/10 transition-all duration-300 ${mutedTextColor} text-sm font-medium`}>
@@ -71,7 +75,11 @@ export const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-4">
-             <button onClick={toggleTheme} className={`${isDark ? "text-soft-text" : "text-journal-text"} hover:opacity-70 transition-opacity`}>
+             <button
+               onClick={toggleTheme}
+               className={`${isDark ? "text-soft-text" : "text-journal-text"} hover:opacity-70 transition-opacity`}
+               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+             >
                 <span className="material-symbols-outlined">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
             </button>
             <div className={`size-10 rounded-full border-2 bg-cover bg-center ${isDark ? "border-history-purple/20" : "border-journal-purple"}`} style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB11PswFRDTqzlQNHemW1Ly_hnaYA0hyrFbbf-SD3u3nzE7hmfAO_cYYfl_o8_Ibd7jQEhlGA1w7EJUwi4PUZjba7dD611uIiijZfNMoQVCY5JQIoM5f0K3QHkn9JOVrkbGJGO0Eg0fWtNhI8GYCDRP3ZC6YqSx831wmV7Vl7i27skZ5hAEjQLTDnzPSgFq7LOU6nfRvxKw8Texyt3TXdulTueqWc_63AMUXVzF7sDYl3CwuZf528xQjOkKzuSelOVO3jGSAEoCtkzJ')"}}></div>

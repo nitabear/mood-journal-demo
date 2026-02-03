@@ -92,6 +92,7 @@ export const EditorPage = () => {
                 spellCheck="false"
                 value={text}
                 onChange={handleTextChange}
+                aria-label="Daily reflection entry"
             ></textarea>
           </div>
         </div>
