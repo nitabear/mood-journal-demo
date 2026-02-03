@@ -45,8 +45,8 @@ export const Navbar = () => {
   return (
     <header className={`sticky top-0 z-50 w-full px-6 md:px-20 py-4 flex items-center justify-between border-b backdrop-blur-md transition-colors ${
         isDark
-        ? "bg-black/20 border-white/10"
-        : "bg-background-light/80 border-journal-accent/30"
+        ? "bg-app-bg-dark/80 border-white/10"
+        : "bg-app-bg-light/80 border-journal-accent/30"
     }`}>
       <div className="flex items-center gap-4">
         {path !== '/' && path !== '/analytics' && path !== '/settings' ? (

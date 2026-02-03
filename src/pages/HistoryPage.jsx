@@ -10,7 +10,7 @@ export const HistoryPage = () => {
 
   return (
     <Layout>
-      <div className={`flex-1 flex flex-col items-center px-4 py-8 md:py-16 transition-colors duration-300 ${isDark ? 'bg-gradient-to-b from-journal-dark to-editor-bg-end' : 'bg-background-light'}`}>
+      <div className={`flex-1 flex flex-col items-center px-4 py-8 md:py-16 transition-colors duration-300 ${isDark ? 'bg-app-bg-dark' : 'bg-app-bg-light'}`}>
         <div className="w-full max-w-[720px] space-y-8">
 
           {/* Headline Section */}
@@ -79,7 +79,7 @@ export const HistoryPage = () => {
 
        {/* Footer / Simple Branding (Screen 1) */}
        {!isDark && (
-         <footer className="w-full py-8 text-center text-journal-text/40 text-xs uppercase tracking-[0.2em] bg-background-light">
+         <footer className="w-full py-8 text-center text-journal-text/40 text-xs uppercase tracking-[0.2em] bg-app-bg-light">
             © 2024 Mood Journal • Premium Minimalist Experience
          </footer>
        )}

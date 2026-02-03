@@ -8,7 +8,7 @@ export const SettingsPage = () => {
 
   return (
     <Layout>
-      <div className={`flex-1 flex flex-col items-center py-10 px-6 transition-colors duration-300 ${isDark ? "bg-background-dark" : "bg-background-light"}`}>
+      <div className={`flex-1 flex flex-col items-center py-10 px-6 transition-colors duration-300 ${isDark ? "bg-app-bg-dark" : "bg-app-bg-light"}`}>
         <div className="w-full max-w-[720px] flex-1 flex flex-col">
 
             {/* Page Heading */}
