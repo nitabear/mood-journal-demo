@@ -1,16 +1,69 @@
-# React + Vite
+# Mood Journal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, calm writing experience designed to help you focus on your reflections. This application features real-time sentiment analysis that subtly adapts the visual atmosphere based on the emotional tone of your entries.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Distraction-Free Interface**: A minimalist design following a "Less is More" philosophy to prioritize your writing.
+- **Real-Time Sentiment Analysis**: The background gradient shifts dynamically between calming blues (Neutral/Negative) and warm yellows (Positive) as you type, reflecting the mood of your text.
+- **Responsive Design**: Optimized for a seamless experience across devices.
+- **Calm Aesthetics**: Uses the 'Manrope' font and a carefully curated color palette to ensure a soothing environment.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 19, Vite
+- **Styling**: Tailwind CSS
+- **Routing**: React Router
+- **Icons**: Lucide React / Material Symbols
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (Latest LTS recommended)
+- npm
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd mood-journal
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+
+To start the local development server:
+
+```bash
+npm run dev
+```
+
+### Build
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+### Linting
+
+To run the linter:
+
+```bash
+npm run lint
+```
+
+## Design Philosophy
+
+The Mood Journal is built on the principle that digital tools should be calm and unobtrusive. The interface removes non-essential borders and heavy elements, using spacing and typography to create structure.
+
+For more details, see [DESIGN.md](./DESIGN.md).
