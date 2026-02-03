@@ -6,7 +6,7 @@ import { useMood } from '../context/MoodContext';
 import { analyzeSentiment } from '../lib/sentiment';
 
 export const EditorPage = () => {
-  const { setCurrentMood, addEntry } = useMood();
+  const { setCurrentMood, addEntry, theme } = useMood();
   const navigate = useNavigate();
   const [text, setText] = useState('');
   const [mood, setMood] = useState(null);
@@ -46,6 +46,13 @@ export const EditorPage = () => {
   let color2 = '#1A1A1A';
   let isRadial = true;
 
+  // Default based on Theme if Mood is Null
+  if (!mood && theme === 'light') {
+    color1 = '#f5f7f8'; // app-bg-light
+    color2 = '#f5f7f8';
+    isRadial = false;
+  }
+
   if (mood) {
     if (mood.sentiment === 'positive') {
         color1 = '#FFF9C4';
@@ -72,7 +79,7 @@ export const EditorPage = () => {
   const wordCount = text.trim().split(/\s+/).filter(w => w.length > 0).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
 
-  const isLightBg = mood && (mood.sentiment === 'positive' || mood.sentiment === 'negative');
+  const isLightBg = (mood && (mood.sentiment === 'positive' || mood.sentiment === 'negative')) || (!mood && theme === 'light');
 
   const handleSave = () => {
     if (!text.trim()) return;
