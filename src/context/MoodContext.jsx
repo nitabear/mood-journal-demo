@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { MOCK_ENTRIES } from '../lib/constants';
+import { initializeDatabase, getEntries, addEntry as dbAddEntry } from '../lib/database';
 
 const MoodContext = createContext();
 
@@ -7,7 +7,13 @@ const MoodContext = createContext();
 export const useMood = () => useContext(MoodContext);
 
 export const MoodProvider = ({ children }) => {
-  const [entries, setEntries] = useState(MOCK_ENTRIES);
+  const [entries, setEntries] = useState(() => {
+    if (typeof window !== 'undefined') {
+      initializeDatabase();
+      return getEntries();
+    }
+    return [];
+  });
   const [currentMood, setCurrentMood] = useState(null);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -33,7 +39,8 @@ export const MoodProvider = ({ children }) => {
   };
 
   const addEntry = (entry) => {
-    setEntries(prev => [entry, ...prev]);
+    const updatedEntries = dbAddEntry(entry);
+    setEntries(updatedEntries);
   };
 
   return (
