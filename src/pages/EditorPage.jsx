@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { MoodChips } from '../components/ui/MoodChips';
 import { useMood } from '../context/MoodContext';
 import { analyzeSentiment } from '../lib/sentiment';
 
 export const EditorPage = () => {
-  const { setCurrentMood } = useMood();
+  const { setCurrentMood, addEntry } = useMood();
+  const navigate = useNavigate();
   const [text, setText] = useState('');
   const [mood, setMood] = useState(null);
 
@@ -72,6 +74,46 @@ export const EditorPage = () => {
 
   const isLightBg = mood && (mood.sentiment === 'positive' || mood.sentiment === 'negative');
 
+  const handleSave = () => {
+    if (!text.trim()) return;
+
+    // Use current date for title default
+    const date = new Date();
+    const title = `Entry on ${date.toLocaleDateString()}`;
+
+    // Default mood values if transient
+    const entryMood = mood || { value: 'calm', sentiment: 'neutral', icon: 'sentiment_neutral', label: 'Calm' };
+
+    // Ensure we have icon/label even if mood is transient from text analysis
+    let finalMood = { ...entryMood };
+    if (!finalMood.icon) {
+         if (finalMood.sentiment === 'positive') {
+             finalMood.icon = 'sentiment_satisfied';
+             finalMood.label = 'Joyful'; // Fallback
+         } else if (finalMood.sentiment === 'negative') {
+             finalMood.icon = 'sentiment_dissatisfied';
+             finalMood.label = 'Anxious'; // Fallback
+         } else {
+             finalMood.icon = 'sentiment_neutral';
+             finalMood.label = 'Neutral';
+         }
+    }
+
+    const entry = {
+      id: Date.now(),
+      title,
+      date,
+      content: text,
+      mood: finalMood.value,
+      moodIcon: finalMood.icon,
+      sentiment: finalMood.sentiment,
+      category: finalMood.label || 'General'
+    };
+
+    addEntry(entry);
+    navigate('/');
+  };
+
   return (
     <Layout>
       <div
@@ -114,10 +156,14 @@ export const EditorPage = () => {
                         <span>{readTime} min read</span>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-primary">
-                    <span className="material-symbols-outlined text-sm">cloud_done</span>
-                    <span className="tracking-widest uppercase">Saved to cloud</span>
-                </div>
+                <button
+                    onClick={handleSave}
+                    className="flex items-center gap-2 text-xs font-medium text-primary hover:opacity-80 transition-opacity"
+                    aria-label="Save entry"
+                >
+                    <span className="material-symbols-outlined text-sm">save</span>
+                    <span className="tracking-widest uppercase">Save Entry</span>
+                </button>
             </div>
         </footer>
 
