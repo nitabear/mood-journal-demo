@@ -9,7 +9,7 @@ import { SettingsPage } from './pages/SettingsPage';
 function App() {
   return (
     <MoodProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<HistoryPage />} />
           <Route path="/editor" element={<EditorPage />} />
